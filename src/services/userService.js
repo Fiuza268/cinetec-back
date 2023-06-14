@@ -1,16 +1,16 @@
-import { query } from 'express';
 import database from '../repository/connection.js';
+import { randomUUID } from 'crypto';
 
 async function createUser(name, email, password, typeUser) {
-    const sql = 'INSERT INTO tbl_usuario(nome, email, senha, tipo_usuario) VALUES(?, ?, ?, ?)';
-    const dados = [name, email, password, typeUser];
+    const sql = 'INSERT INTO tbl_usuario(id_usuario, nome, email, senha, tipo_usuario) VALUES(?,?, ?, ?, ?)';
+    const dados = [randomUUID(), name, email, password, typeUser];
 
     const conn = await database.connect();
     await conn.query(sql, dados);
     await conn.end();
 }
 
-async function updateUser(name, email, password, typeUser, idUser){
+async function updateUser(name, email, password, typeUser, idUser) {
     const sql = "UPDATE tbl_usuario SET nome = ?, email = ?, senha = ?, tipo_usuario = ? WHERE id_usuario = ?";
     const dados = [name, email, password, typeUser, idUser];
 
@@ -19,7 +19,7 @@ async function updateUser(name, email, password, typeUser, idUser){
     await conn.end();
 }
 
-async function deleteUser(idUser){
+async function deleteUser(idUser) {
     const sql = "DELETE FROM tbl_usuario WHERE id_usuario = 1";
 
     const conn = await database.connect();
@@ -28,4 +28,4 @@ async function deleteUser(idUser){
 
 }
 
-export default {createUser, updateUser, deleteUser};
+export default { createUser, updateUser, deleteUser };

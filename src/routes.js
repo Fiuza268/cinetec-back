@@ -1,5 +1,4 @@
 import express from 'express';
-
 import user from './controllers/UserController.js';
 import actor from './controllers/actorController.js';
 import director from './controllers/directorController.js';
